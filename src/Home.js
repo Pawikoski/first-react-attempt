@@ -1,12 +1,15 @@
+import { useState, useEffect } from 'react';
+import useFetch from './useFetch';
+import BlogList from './BlogList';
+
 const Home = () => {
-    const handleClick = () => {
-        console.log('hello world')
-    }
+    const { data: blogs, isLoading, error } =  useFetch('http://localhost:8000/blogs');
 
     return ( 
         <div className="home">
-            <h2>Homepage</h2>
-            <button onClick={handleClick}></button>
+            { error && <div>{ error }</div> }
+            { isLoading && <div>Loading...</div> }
+            { blogs && <BlogList blogs={blogs} />}
         </div>
      );
 }
